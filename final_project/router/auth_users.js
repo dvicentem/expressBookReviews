@@ -20,7 +20,7 @@ let users = [
 
 const isValid = (username) => { //returns boolean
   let usersMatch = users.filter(
-    user => user.name === username
+    (user) => {return(user.username === username)}
   )
   return usersMatch.length > 0
 }

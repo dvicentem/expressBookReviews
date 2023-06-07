@@ -6,8 +6,15 @@ const public_users = express.Router();
 
 
 public_users.post("/register", (req, res) => {
-  //Write your code here
-  return res.status(300).json({ message: "Yet to be implemented" });
+  //Task 6
+  let username = req.body.username
+  let password = req.body.password
+  if (!username || !password) return res.status(403).json({ message: "User/password invalid" });
+  if (isValid(username)) return res.status(403).json({ message: "User already exists" });
+
+  users.push({'username': username, 'password': password})
+  return res.status(200).send("New user added: " + JSON.stringify(users.filter(user =>
+    user.username === username), null, 2));;
 });
 
 // Get the book list available in the shop
@@ -30,7 +37,7 @@ public_users.get('/author/:author', function (req, res) {
   authorBooks = []
 
   isbns.forEach((isbn) => {
-    if(books[isbn].author === author) authorBooks.push(books[isbn])
+    if (books[isbn].author === author) authorBooks.push(books[isbn])
   })
 
   return res.status(200).send(JSON.stringify(authorBooks, null, 2));
@@ -44,7 +51,7 @@ public_users.get('/title/:title', function (req, res) {
   titleBooks = []
 
   isbns.forEach((isbn) => {
-    if(books[isbn].title === title) titleBooks.push(books[isbn])
+    if (books[isbn].title === title) titleBooks.push(books[isbn])
   })
 
   return res.status(200).send(JSON.stringify(titleBooks, null, 2));
