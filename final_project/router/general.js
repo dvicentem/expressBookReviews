@@ -9,8 +9,8 @@ public_users.post("/register", (req, res) => {
   //Task 6
   let username = req.body.username
   let password = req.body.password
-  if (!username || !password) return res.status(403).json({ message: "User/password invalid" });
-  if (isValid(username)) return res.status(403).json({ message: "User already exists" });
+  if (!username || !password) return res.status(404).json({ message: "User/password invalid" });
+  if (isValid(username)) return res.status(404).json({ message: "User already exists" });
 
   users.push({'username': username, 'password': password})
   return res.status(200).send("New user added: " + JSON.stringify(users.filter(user =>

@@ -34,8 +34,8 @@ const authenticatedUser = (username, password) => { //returns boolean
 
 //only registered users can login
 regd_users.post("/login", (req, res) => {
-  let username = req.body.username
-  let password = req.body.password
+  const username = req.body.username
+  const password = req.body.password
 
   if (!username || !password) {
     return res.status(404).json({ message: 'Error loggin in' })
@@ -64,8 +64,14 @@ regd_users.post("/login", (req, res) => {
 
 // Add a book review
 regd_users.put("/auth/review/:isbn", (req, res) => {
-  //Write your code here
-  return res.status(300).json({ message: "Yet to be implemented" });
+  //Task 8
+  const isbn = req.params.isbn;
+  const review = req.body.review;
+  const username = req.session.authorization.username;
+
+  books[isbn].reviews[username] = review;
+
+  return res.status(200).json({ message: "Review added by user " + username + JSON.stringify(books[isbn] )});
 });
 
 module.exports.authenticated = regd_users;
